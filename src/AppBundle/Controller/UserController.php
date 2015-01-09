@@ -109,4 +109,13 @@ class UserController extends Controller
     public function loginCheckAction()
     {
     }
+    
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+    }
+    
+    
 }

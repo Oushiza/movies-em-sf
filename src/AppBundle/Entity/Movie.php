@@ -45,7 +45,7 @@ class Movie
     /**
      * @var string
      *
-     * @ORM\Column(name="rating", type="decimal", scale=2)
+     * @ORM\Column(name="rating", type="decimal", precision=2, scale=1)
      */
     private $rating;
 
