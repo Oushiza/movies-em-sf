@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="details">
+        <img src="{{ movie.poster }}" />
+        <div class="detailsList">
+            <h1>{{ movie.title }}</h1>
+            <p>release : {{ movie.released | date("d-m-Y") }}</p>
+            <p>Director : {{ movie.directors }}</p>
+            <p>Scenarist : {{ movie.writers }}</p>
+            <p>Actors : {{ movie.actors }}</p>
+            <p>Genre : {{ movie.genres }}</p>
+            <p>From : {{ movie.countries }}</p>
+            <p>Plot : {{ movie.plot }}</p>
+            <p>{{ movie.rating }} on {{ movie.votes }} votes</p>
+        </div>
+    </div>
+    <a href="{{ path('movies') }}" title="Return to list">Back</a>
+{% endblock %}

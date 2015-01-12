@@ -2,13 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Movies{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/meyer.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/styleMovie.css') }}" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <nav>
+            <ul class="nav nav-tabs nav-justified">
+                <li><a href="{{ path('homepage') }}">Homepage</a></li>
+                <li><a href="{{ path('movies') }}">List</a></li>
+                <li><a href="{{ path('register') }}">Register</a></li>
+                <li><a href="">Account</a></li>
+                <li><a href="">Cart</a></li>
+            </ul>
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

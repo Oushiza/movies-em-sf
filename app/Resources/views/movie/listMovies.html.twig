@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}    
+    <div class="list">
+    {% for movie in movies %}
+        <a class="img" href="{{ path('movieDetails', {'id': movie.id}) }}" title="{{ movie.title }}"><img src="{{ movie.poster }}" /></a>
+    {% endfor %}
+    </div>
+    
+    <div class="pagination">
+        {% if currentPage > 1 %}
+            <a href="{{ path('homepage', {'page' : currentPage-1} ) }}" title="Last page"><<</a>
+        {% endif %}
+        {# TODO: enlève ce lien sur la dernière page #}
+        <a href="{{ path('homepage', {'page' : currentPage+1} ) }}" title="Next page">>></a>
+    </div>
+{% endblock %}
