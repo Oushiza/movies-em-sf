@@ -5,24 +5,36 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
 class MovieController extends Controller
 {
     
     /**
      * @Route("movies/{page}", name="movies", requirements={"page"="\d+"}, defaults={"page"="1"})
      */
-    public function listMoviesAction($page)
+    public function listMoviesAction(Request $request, $page)
     {
+        $numPerPage = 50;
+        
         $movieRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
         
-        $numPerPage = 50;
-        $offset = ($page - 1) * $numPerPage;
+        // Compte total de film et pagination max
+        $moviesNumber = $movieRepository->countAll();
+        $maxPages = ceil($moviesNumber/$numPerPage);
         
-        $movies = $movieRepository->findBy(array(), array("year" => "DESC"), $numPerPage, $offset);
+        // Bouton search par date
+        $minYear = $request->query->get('minYear');
+        $maxYear = $request->query->get('maxYear');
+        $searchByDate = $movieRepository->findByYear($minYear, $maxYear, $page, $numPerPage);
         
         $params = array(
-            "movies" => $movies,
-            "currentPage" => $page
+            "movies" => $searchByDate,
+            "moviesNumber" => $moviesNumber,
+            "numPerPage" => $numPerPage,
+            "currentPage" => $page,
+            "maxPages" => $maxPages
         );
         
         return $this->render('movie/listMovies.html.twig', $params);

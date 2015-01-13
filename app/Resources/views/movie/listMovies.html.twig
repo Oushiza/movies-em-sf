@@ -1,17 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}    
+    
+    <form class="searchByDate" action="" method="GET">
+        {% if currentPage > 1 %}
+            <a href="{{ path('movies', {'page' : currentPage-1} ) }}" title="Last page"><<</a>
+        {% endif %}
+        <select class="form-control" name="minYear" id="minYear">
+            {% for i in 1950.."now"|date ('Y') %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <select class="form-control" name="maxYear" id="maxYear">
+             {% for i in "now"|date ('Y')..1950 %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <input class="btn btn-default" type="submit" value="Search" />
+        {% if currentPage < maxPages %}
+            <a href="{{ path('movies', {'page' : currentPage+1} ) }}" title="Next page">>></a>
+        {% endif %}
+    </form>
+        
     <div class="list">
     {% for movie in movies %}
-        <a class="img" href="{{ path('movieDetails', {'id': movie.id}) }}" title="{{ movie.title }}"><img src="{{ movie.poster }}" /></a>
+        <a class="img" href="{{ path('movieDetails', {'id': movie.id}) }}" title="{{ movie.title }} : {{ movie.plot }}"><img src="{{ movie.poster }}" /></a>
     {% endfor %}
     </div>
     
-    <div class="pagination">
-        {% if currentPage > 1 %}
-            <a href="{{ path('homepage', {'page' : currentPage-1} ) }}" title="Last page"><<</a>
-        {% endif %}
-        {# TODO: enlève ce lien sur la dernière page #}
-        <a href="{{ path('homepage', {'page' : currentPage+1} ) }}" title="Next page">>></a>
+    <div class="numPerPage">
+        #{{ (currentPage-1)*numPerPage }} - #{% if numPerPage*currentPage > moviesNumber %}{{ moviesNumber }} {% else %} {{ numPerPage*currentPage }} {% endif %} / {{ moviesNumber }}
     </div>
+        
 {% endblock %}

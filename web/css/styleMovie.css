@@ -1,6 +1,5 @@
 body { font-family: arial, sans-serif; background-color: #15151E; color: #fff;}
 nav { background-color: #fff;}
-.list { width: 100%; margin: 0 auto;}
 a.img { display: inline-block; width: 120px; height: 178px;}
 a.img img { width: 100%; height: 100%; opacity: 0.8;}
 a.img img:hover {  opacity: 1;}
@@ -10,3 +9,7 @@ a.img img:hover {  opacity: 1;}
 .details img { float: left; margin-right: 10px;}
 .detailsList { line-height: 20px;}
 .detailsList h1 { font-size: 1.2em;}
+form { width:325px; margin: 5px auto; display: block; color: #15151E;}
+form label { color: #fff;}
+.searchByDate .form-control { width: 82px; margin: 5px; display: inline-block;}
+.numPerPage { width: 300px; margin: 0 auto; text-align: center;}
