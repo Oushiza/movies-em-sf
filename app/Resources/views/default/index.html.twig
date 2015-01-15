@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}    
-    Homepage
+{% block body %} 
+    
+    <div class="row">
+        <h1>CineMovies</h1>
+            {% if app.user %}
+                Bonjour {{ app.user.username | upper }}
+            {# {% else %}
+                <p>Inscription ( or in menu ) : <a href="{{ path('register') }}" title="Inscription link">Register</a></p>
+                <p>Login ( or in menu ) : <a href="{{ path('login_route') }}" title="Login link">Login</a></p> #}
+            {% endif %}
+            <a href="{{ path('movieDetails', {'id': randomPoster.id}) }}" title="{{ randomPoster.title }}"><img src="{{ randomPoster.poster }}" /></a>
+            <p>Presentations</p>
+            <h2>Best rating</h2>
+            {# {% for movie in movies %}
+                <a class="img" href="{{ path('movieDetails', {'id': movie.id}) }}" title="{{ movie.title }} : {{ movie.plot }}"><img src="{{ movie.poster }}" /></a>
+            {% endfor %} #}
+            <h2>Lest released</h2>
+            {# {% for movie in movies %}
+                <a class="img" href="{{ path('movieDetails', {'id': movie.id}) }}" title="{{ movie.title }} : {{ movie.plot }}"><img src="{{ movie.poster }}" /></a>
+            {% endfor %} #}
+    </div>
+    
 {% endblock %}

@@ -6,12 +6,14 @@
         <div>{{ error.message }}</div>
     {% endif %}
 
-    <form action="{{ path('login_check') }}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+    <form class="navbar-form navbar-left" action="{{ path('login_check') }}" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
+            <label for="password">Password:</label>
+            <input class="form-control" type="password" id="password" name="_password" />
+        </div>
 
         {#
             If you want to control the URL the user
@@ -19,6 +21,13 @@
             <input type="hidden" name="_target_path" value="/account" />
         #}
 
-        <button type="submit">login</button>
+        <button class="btn btn-default" type="submit">Login</button>
+    </form>
+    
+    <form class="navbar-form navbar-left" action="{{ path('email') }}" method="post">
+        <label for="email">I've lost my password : <br />( write your email to choose a new password )</label>
+        <input class="form-control" type="email" id="email" name="_email" placeholder="example@example.com"/>
+        
+        <button class="btn btn-default" type="submit">Envoyer</button>
     </form>
 {% endblock %}

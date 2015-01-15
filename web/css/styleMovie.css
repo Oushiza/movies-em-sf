@@ -9,7 +9,8 @@ a.img img:hover {  opacity: 1;}
 .details img { float: left; margin-right: 10px;}
 .detailsList { line-height: 20px;}
 .detailsList h1 { font-size: 1.2em;}
-form { width:325px; margin: 5px auto; display: block; color: #15151E;}
+form { width:350px; margin: 5px auto; display: block; color: #15151E;}
 form label { color: #fff;}
 .searchByDate .form-control { width: 82px; margin: 5px; display: inline-block;}
 .numPerPage { width: 300px; margin: 0 auto; text-align: center;}
+.row { margin: 30px;}

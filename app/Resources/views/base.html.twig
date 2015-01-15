@@ -16,8 +16,8 @@
                 <li><a href="{{ path('homepage') }}">Homepage</a></li>
                 <li><a href="{{ path('movies') }}">List</a></li>
                 <li><a href="{{ path('register') }}">Register</a></li>
-                <li><a href="">Account</a></li>
-                <li><a href="">Cart</a></li>
+                <li><a href="{{ path('login_route') }}">Login</a></li>
+                <li><a href="{{ path('logout') }}">Logout</a></li>
             </ul>
         </nav>
         {% block body %}{% endblock %}

@@ -12,8 +12,26 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-               
-        return $this->render('default/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT m.id
+            FROM AppBundle:Movie m'
+        );
+        $ids = $query->getResult();
+        $idCount = count($ids);
+        $idRandom = rand(0, $idCount);
+        
+        $id = $ids[$idRandom]['id'];
+        
+        $posterRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
+        $poster = $posterRepository->find($id);
+        dump($poster);
+        
+        $params = array(
+            "randomPoster" => $poster
+        );
+        
+        return $this->render('default/index.html.twig', $params);
     }
     
 }

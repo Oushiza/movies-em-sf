@@ -2,24 +2,44 @@
 
 {% block body %}    
     
-    <form class="searchByDate" action="" method="GET">
+    <form class="searchByDate" action="{{ path('movies') }}" method="GET">
+        {# lien vers la première page #}
         {% if currentPage > 1 %}
-            <a href="{{ path('movies', {'page' : currentPage-1} ) }}" title="Last page"><<</a>
+            <a href="{{ path('movies', {'minYear' : minYear, 'maxYear' : maxYear} ) }}" title="First page"><<</a>
         {% endif %}
+        
+        {# lien vers la page précedente #}
+        {% if currentPage > 1 %}
+            <a href="{{ path('movies', {'page' : currentPage-1, 'minYear' : minYear, 'maxYear' : maxYear} ) }}" title="Preview page"><</a>
+        {% endif %}
+        
+        {# bouton select de l'année minimum #}
         <select class="form-control" name="minYear" id="minYear">
             {% for i in 1950.."now"|date ('Y') %}
-                <option value="{{ i }}">{{ i }}</option>
+                <option value="{{ i }}" {% if (i == minYear) %} selected="selected"{% endif %} >{{ i }}</option>
             {% endfor %}
         </select>
+        
+        {# bouton select de l'année maximum #}
         <select class="form-control" name="maxYear" id="maxYear">
              {% for i in "now"|date ('Y')..1950 %}
-                <option value="{{ i }}">{{ i }}</option>
+                <option value="{{ i }}" {% if (i == maxYear) %} selected="selected"{% endif %} >{{ i }}</option>
             {% endfor %}
         </select>
+        
+        {# Bouton de validation du filtre par année #}
         <input class="btn btn-default" type="submit" value="Search" />
+        
+        {# lien vers la page suivante #}
         {% if currentPage < maxPages %}
-            <a href="{{ path('movies', {'page' : currentPage+1} ) }}" title="Next page">>></a>
+            <a href="{{ path('movies', {'page' : currentPage+1, 'minYear' : minYear, 'maxYear' : maxYear} ) }}" title="Next page">></a>
         {% endif %}
+        
+        {# lien vers la dernière page #}
+        {% if currentPage < maxPages %}
+            <a href="{{ path('movies', {'page' : maxPages, 'minYear' : minYear, 'maxYear' : maxYear} ) }}" title="Last page">>></a>
+        {% endif %}
+        
     </form>
         
     <div class="list">
@@ -29,7 +49,7 @@
     </div>
     
     <div class="numPerPage">
-        #{{ (currentPage-1)*numPerPage }} - #{% if numPerPage*currentPage > moviesNumber %}{{ moviesNumber }} {% else %} {{ numPerPage*currentPage }} {% endif %} / {{ moviesNumber }}
+        #{{ (currentPage-1)*numPerPage+1 }} - #{% if numPerPage*currentPage > moviesNumber %}{{ moviesNumber }} {% else %} {{ numPerPage*currentPage }} {% endif %} / {{ moviesNumber }}
     </div>
         
 {% endblock %}

@@ -92,7 +92,7 @@ class UserController extends Controller
 
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(Security::LAST_USERNAME);
-
+        
         return $this->render(
             'user/login.html.twig',
             array(
@@ -117,5 +117,24 @@ class UserController extends Controller
     {
     }
     
-    
+    /**
+     * @Route("/test-email", name="email")
+     */
+    public function sendMailAction()
+    {
+        
+        $username = "abruti";
+        
+        $message = \Swift_Message::newInstance()
+            ->setCharset("utf-8")
+            ->setSubject('Change password')
+            ->setFrom(array('noreply@movies.com' => "Movies"))
+            ->setTo('kevin-lay@hotmail.fr')
+            ->setBody($this->renderView('email/forgotMail.html.twig', array('username' => $username)), "text/html")
+        ;
+        $this->get('mailer')->send($message);
+        
+         die();
+    }
+      
 }

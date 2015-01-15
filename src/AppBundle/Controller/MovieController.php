@@ -20,13 +20,22 @@ class MovieController extends Controller
         
         $movieRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
         
-        // Compte total de film et pagination max
-        $moviesNumber = $movieRepository->countAll();
-        $maxPages = ceil($moviesNumber/$numPerPage);
-        
-        // Bouton search par date
+        // récupération des valeur min et max Year du formulaire
         $minYear = $request->query->get('minYear');
         $maxYear = $request->query->get('maxYear');
+        
+        // Compte total de film et pagination max
+        $moviesNumber = $movieRepository->countAll($minYear, $maxYear);
+        $maxPages = ceil($moviesNumber/$numPerPage);
+        
+        // Si l'utilisateur rentre un chiffre plus grand que le nombre de page dans l'URL ou un nombre plus petit que 1
+        if ($page > $maxPages){
+            return $this->redirect($this->generateUrl("movies", array("page" => $maxPages)));
+        }elseif ($page < 1){
+            return $this->redirect($this->generateUrl("movies", array("page" => 1)));
+        }
+        
+        // Bouton search par date
         $searchByDate = $movieRepository->findByYear($minYear, $maxYear, $page, $numPerPage);
         
         $params = array(
@@ -34,7 +43,9 @@ class MovieController extends Controller
             "moviesNumber" => $moviesNumber,
             "numPerPage" => $numPerPage,
             "currentPage" => $page,
-            "maxPages" => $maxPages
+            "maxPages" => $maxPages,
+            "minYear" => $minYear,
+            "maxYear" => $maxYear
         );
         
         return $this->render('movie/listMovies.html.twig', $params);

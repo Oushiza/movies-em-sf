@@ -12,8 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class MovieRepository extends EntityRepository
 {
-    public function countAll() {
-        $query = $this->createQueryBuilder("m")->select("count(m)")->getQuery();
+    public function countAll($minYear, $maxYear) {
+//        $query = $this->createQueryBuilder("m")->select("count(m)")->getQuery();
+//        $count = $query->getSingleScalarResult();
+//        return $count;
+        
+        $queryBuilder = $this->createQueryBuilder("m")
+                ->select("count(m)");
+        if(!empty($minYear)){
+            $queryBuilder->andWhere("m.year >= :minYear")->andWhere("m.year <= :maxYear");
+            $queryBuilder->setParameter("minYear", $minYear)->setParameter("maxYear", $maxYear);
+        }
+        $query = $queryBuilder->getQuery();
         $count = $query->getSingleScalarResult();
         return $count;
     }
