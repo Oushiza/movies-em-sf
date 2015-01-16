@@ -16,13 +16,13 @@ class MovieController extends Controller
      */
     public function listMoviesAction(Request $request, $page)
     {
-        $numPerPage = 50;
-        
-        $movieRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
-        
         // récupération des valeur min et max Year du formulaire
         $minYear = $request->query->get('minYear');
         $maxYear = $request->query->get('maxYear');
+        
+        $numPerPage = 50;
+        
+        $movieRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
         
         // Compte total de film et pagination max
         $moviesNumber = $movieRepository->countAll($minYear, $maxYear);

@@ -25,7 +25,6 @@ class DefaultController extends Controller
         
         $posterRepository = $this->getDoctrine()->getRepository("AppBundle:Movie");
         $poster = $posterRepository->find($id);
-        dump($poster);
         
         $params = array(
             "randomPoster" => $poster

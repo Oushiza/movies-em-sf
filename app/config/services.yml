@@ -4,6 +4,10 @@ parameters:
 #    parameter_name: value
 
 services:
+    string_helper:
+        class: AppBundle\Service\StringHelperService
+        arguments: ["@doctrine", "@mailer"] #pour l'exemple, on ne les utilise pas vraiment
+        
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

@@ -22,12 +22,6 @@
         #}
 
         <button class="btn btn-default" type="submit">Login</button>
-    </form>
-    
-    <form class="navbar-form navbar-left" action="{{ path('email') }}" method="post">
-        <label for="email">I've lost my password : <br />( write your email to choose a new password )</label>
-        <input class="form-control" type="email" id="email" name="_email" placeholder="example@example.com"/>
-        
-        <button class="btn btn-default" type="submit">Envoyer</button>
+        <a href="{{ path('forgotPassword') }}">Forgot your password ?</a>
     </form>
 {% endblock %}
